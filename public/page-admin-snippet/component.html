@@ -1,0 +1,50 @@
+<adminlte-header></adminlte-header>
+<adminlte-sidebar-left section="'admin'"></adminlte-sidebar-left>
+
+<adminlte-content-wrapper breadcrumbs="$ctrl.breadcrumbs">
+    <div class="box box-success box-solid" ng-repeat="(context, data) in $ctrl.items">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{context}}</h3>
+        </div>
+        <div class="box-body">
+            <div class="box box-success" ng-repeat="(code,snippet) in data">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{code}}</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th ng-repeat="(lang, val) in snippet.langs">Перевод на "{{lang}}"</th>
+                        </tr>
+                        <tr>
+                            <td ng-repeat="(lang, val) in snippet.langs">
+                                <div class="input-group">
+                                    <textarea
+                                            cols="30"
+                                            rows="3"
+                                            class="form-control"
+                                            ng-model="$ctrl.items[context][code]['langs'][lang]"
+                                    ></textarea>
+                                    <span class="input-group-addon pointer" title="Вернуть исходный текст" ng-click="$ctrl.items[context][code]['langs'][lang]=snippet.default"><i class="fa fa-eraser"></i></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <code title="Просто скопируйте текст отсюда, если случайно испортили перевод">{{snippet.default}}</code>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button ng-click="$ctrl.save()" type="button" class="btn pull-right btn-primary btn-lg">Сохранить переводы</button>
+
+</adminlte-content-wrapper>
+
+<adminlte-footer></adminlte-footer>
+
+<adminlte-sidebar-right>
+    <adminlte-list-filter params="$ctrl.params" load="$ctrl.load" filters="$ctrl.config.filters"></adminlte-list-filter>
+</adminlte-sidebar-right>
