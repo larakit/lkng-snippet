@@ -1,0 +1,30 @@
+{
+    "name": "larakit/lkng-snippet",
+    "description": "[Larakit] [angular] Управление сниппетами",
+    "keywords": [
+        "laravel 5",
+        "laravel",
+        "larakit"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Berdnikov",
+            "email": "aberdnikov@gmail.com"
+        }
+    ],
+    "require": {
+        "larakit/lk-twig": "*",
+        "larakit/ng-larakit": "*",
+        "larakit/sf-angular-file-upload": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Larakit\\": "src"
+        },
+        "files": [
+            "init.php"
+        ]
+    },
+    "minimum-stability": "dev"
+}
