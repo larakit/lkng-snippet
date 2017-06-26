@@ -15,7 +15,7 @@
     ],
     "require": {
         "larakit/lk-twig": "*",
-        "larakit/ng-larakit": "*"
+        "larakit/ng-adminlte": "*"
     },
     "autoload": {
         "psr-4": {
