@@ -2,12 +2,12 @@
 <adminlte-sidebar-left section="'admin'"></adminlte-sidebar-left>
 
 <adminlte-content-wrapper breadcrumbs="$ctrl.breadcrumbs">
-    <div class="box box-success box-solid" ng-repeat="(context, data) in $ctrl.items">
+    <div class="box box-success box-solid" ng-repeat="(context, data) in $ctrl.items" ng-if="$ctrl.isShowContext(context)">
         <div class="box-header with-border">
             <h3 class="box-title">{{context}}</h3>
         </div>
         <div class="box-body">
-            <div class="box box-success" ng-repeat="(code,snippet) in data">
+            <div class="box box-success" ng-repeat="(code,snippet) in data" ng-if="$ctrl.isShowCode(code, snippet)">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{code}}</h3>
                 </div>
@@ -15,10 +15,10 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <th ng-repeat="(lang, val) in snippet.langs">Перевод на "{{lang}}"</th>
+                            <th ng-repeat="(lang, val) in snippet.langs" >Перевод на "{{lang}}"</th>
                         </tr>
                         <tr>
-                            <td ng-repeat="(lang, val) in snippet.langs">
+                            <td ng-repeat="(lang, val) in snippet.langs" ng-if="$ctrl.isShowTranslate(val)">
                                 <div class="input-group">
                                     <textarea
                                             cols="30"
@@ -50,6 +50,26 @@
 <adminlte-footer></adminlte-footer>
 
 <adminlte-sidebar-right>
-    <adminlte-list-filter params="$ctrl.params" load="$ctrl.load" filters="$ctrl.config.filters"></adminlte-list-filter>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Фильтр сниппетов</h3>
+        </div>
+        <div class="box-body">
+            <formfield-text
+                    desc="'Содержит подстроку'"
+                    model="$ctrl.params.context"
+            >Контекст
+            </formfield-text>
+            <formfield-text
+                    desc="'Содержит подстроку'"
+                    model="$ctrl.params.code"
+            >Код фразы
+            </formfield-text>
+            <formfield-text
+                    desc="'Содержит подстроку'"
+                    model="$ctrl.params.translate"
+            >Текст сниппета
+            </formfield-text>
+        </div>
+    </div>
 </adminlte-sidebar-right>
-{{ snippet('Блок НАШИ УСЛУГИ', 'Заголовок') }}
