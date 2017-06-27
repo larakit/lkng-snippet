@@ -63,7 +63,3 @@ Route::post('/!/lkng-snippet/save', function () {
         'message' => 'Переводы успешно обновлены',
     ];
 });
-
-\Larakit\LkNg\LkNgSnippet::to('index')
-    ->register('catalog-title', 'Есть все&mdash;<br> от черепицы до фасада')
-    ->register('catalog-desc', 'Бесплатная доставка при комплексном заказе');

@@ -26,7 +26,8 @@
                                             class="form-control"
                                             ng-model="$ctrl.items[context][code]['langs'][lang]"
                                     ></textarea>
-                                    <span class="input-group-addon pointer" title="Вернуть исходный текст" ng-click="$ctrl.items[context][code]['langs'][lang]=snippet.default"><i class="fa fa-eraser"></i></span>
+                                    <span class="input-group-addon pointer" title="Вернуть исходный текст"
+                                          ng-click="$ctrl.items[context][code]['langs'][lang]=snippet.default"><i class="fa fa-eraser"></i></span>
                                 </div>
                             </td>
                         </tr>
@@ -39,8 +40,11 @@
             </div>
         </div>
     </div>
-    <button ng-click="$ctrl.save()" type="button" class="btn pull-right btn-primary btn-lg">Сохранить переводы</button>
-
+    <div class="row">
+        <div class="col-lg-12">
+            <button ng-click="$ctrl.save()" type="button" class="btn btn-primary btn-lg">Сохранить переводы</button>
+        </div>
+    </div>
 </adminlte-content-wrapper>
 
 <adminlte-footer></adminlte-footer>
