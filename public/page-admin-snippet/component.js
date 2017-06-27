@@ -21,6 +21,11 @@
         $ctrl.snippets = {};
         $ctrl.params = {};
 
+        $ctrl.reset = function (context, code, lang, val) {
+            if(confirm("Вы действительно хотите установить исходный текст?")){
+                $ctrl.items[context][code]['langs'][lang] = val;
+            }
+        };
         $ctrl.isShowContext = function (context) {
             if (undefined == $ctrl.params.context) {
                 return true;
@@ -32,12 +37,12 @@
         };
         $ctrl.isShowCode = function (code, snippet) {
             var cnt = 0;
-            _.each(snippet.langs, function(val, lang){
-                if($ctrl.isShowTranslate(val)){
+            _.each(snippet.langs, function (val, lang) {
+                if ($ctrl.isShowTranslate(val)) {
                     cnt++;
                 }
             });
-            if(!cnt){
+            if (!cnt) {
                 return false;
             }
             if (undefined == $ctrl.params.code) {

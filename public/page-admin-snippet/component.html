@@ -27,7 +27,7 @@
                                             ng-model="$ctrl.items[context][code]['langs'][lang]"
                                     ></textarea>
                                     <span class="input-group-addon pointer" title="Вернуть исходный текст"
-                                          ng-click="$ctrl.items[context][code]['langs'][lang]=snippet.default"><i class="fa fa-eraser"></i></span>
+                                          ng-click="$ctrl.reset(context, code, lang, snippet.default)"><i class="fa fa-eraser"></i></span>
                                 </div>
                             </td>
                         </tr>
