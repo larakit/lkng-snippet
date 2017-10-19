@@ -7,14 +7,14 @@
  * Time: 17:52
  */
 
-$url = \Larakit\NgAdminlte\LkNgRoute::adminUrl('snippets');
+$url = \Larakit\LkNgRoute::adminUrl('snippets');
 
 //##################################################
 //      Регистрация компонента страницы
 //##################################################
 $dir = '/packages/larakit/lkng-snippet/';
-\Larakit\NgAdminlte\LkNgComponent::register('page-admin-snippet', $dir);
-\Larakit\NgAdminlte\LkNgComponent::register('modal-form-snippet', $dir);
+\Larakit\LkNgComponent::register('page-admin-snippet', $dir);
+\Larakit\LkNgComponent::register('modal-form-snippet', $dir);
 
 \Larakit\Event\Event::listener('lkng::init', function () use ($url) {
     if(me('is_admin')) {
@@ -23,13 +23,13 @@ $dir = '/packages/larakit/lkng-snippet/';
         //##################################################
         //      Добавление в sidebar администратора
         //##################################################
-        \Larakit\NgAdminlte\LkNgSidebar::section('admin', 'Контент')
+        \Larakit\LkNgSidebar::section('admin', 'Контент')
             ->item('snippet', $title, $icon, $url);
         
         //##################################################
         //      Добавление в Angular - routing
         //##################################################
-        \Larakit\NgAdminlte\LkNgRoute::factory($url, 'admin-snippet')
+        \Larakit\LkNgRoute::factory($url, 'admin-snippet')
             ->title($title)
             ->subtitle('Управление кусочками текста')
             ->icon($icon);
