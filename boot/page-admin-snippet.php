@@ -25,9 +25,20 @@ $dir = '/packages/larakit/lkng-snippet/';
         //##################################################
         $items = \Larakit\LkNg\LkNgSnippet::all();
         foreach(\Illuminate\Support\Arr::get($items, 'items') as $context => $_items) {
-            $key = md5($context);
+            if(mb_strpos($context, '.')) {
+                $context_array = explode('.', $context, 2);
+                $gr1     = \Illuminate\Support\Arr::get($context_array, 0);
+                $gr2     = \Illuminate\Support\Arr::get($context_array, 1);
+                $key     = $gr1 . '.' . md5($gr2);
+                \Larakit\LkNgSidebar::section('admin', $title)
+                    ->item('snippet'.$gr1, $gr1, $icon, $url . '-' . $gr1);
+                $name = $gr2;
+            } else {
+                $key = md5($context);
+                $name = $context;
+            }
             \Larakit\LkNgSidebar::section('admin', $title)
-                ->item('snippet' . $key, $context, $icon, $url . '-' . $key);
+                ->item('snippet' . $key, $name, $icon, $url . '-' . md5($context));
         }
         
         //##################################################
@@ -55,10 +66,10 @@ Route::get('/!/lkng-snippet/load', function () {
 Route::post('/!/lkng-snippet/save', function () {
     $items = (array) Request::input('items');
     
-    $data  = [];
+    $data = [];
     foreach($items as $group) {
         $context = \Illuminate\Support\Arr::get($group, 'context');
-        $_items   = (array) \Illuminate\Support\Arr::get($group, 'items');
+        $_items  = (array) \Illuminate\Support\Arr::get($group, 'items');
         foreach($_items as $code => $val) {
             $langs = (array) \Illuminate\Support\Arr::get($val, 'langs');
             foreach($langs as $locale => $translate) {
