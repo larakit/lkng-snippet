@@ -18,31 +18,48 @@ $dir = '/packages/larakit/lkng-snippet/';
 
 \Larakit\Event\Event::listener('lkng::init', function () use ($url) {
     if(me('is_admin')) {
-        $title = 'Сниппеты';
-        $icon  = 'fa fa-list';
+        $title = 'Управление текстами';
+        $icon  = 'fa fa-language';
         //##################################################
         //      Добавление в sidebar администратора
         //##################################################
-        \Larakit\LkNgSidebar::section('admin', 'Контент')
-            ->item('snippet', $title, $icon, $url);
+        $items = \Larakit\LkNg\LkNgSnippet::all();
+        foreach(\Illuminate\Support\Arr::get($items, 'items') as $context => $_items) {
+            $key = md5($context);
+            \Larakit\LkNgSidebar::section('admin', $title)
+                ->item('snippet' . $key, $context, $icon, $url . '-' . $key);
+        }
         
         //##################################################
         //      Добавление в Angular - routing
         //##################################################
-        \Larakit\LkNgRoute::factory($url, 'admin-snippet')
+        \Larakit\LkNgRoute::factory($url . '-:key', 'admin-snippet')
             ->title($title)
             ->subtitle('Управление кусочками текста')
             ->icon($icon);
     }
 });
 Route::get('/!/lkng-snippet/load', function () {
-    return \Larakit\LkNg\LkNgSnippet::all();
+    $items = \Larakit\LkNg\LkNgSnippet::all();
+    $ret   = [];
+    foreach(\Illuminate\Support\Arr::get($items, 'items') as $context => $_items) {
+        $key       = md5($context);
+        $ret[$key] = [
+            'context' => $context,
+            'items'   => $_items,
+        ];
+    }
+    
+    return $ret;
 });
 Route::post('/!/lkng-snippet/save', function () {
     $items = (array) Request::input('items');
+    
     $data  = [];
-    foreach($items as $context => $v) {
-        foreach($v as $code => $val) {
+    foreach($items as $group) {
+        $context = \Illuminate\Support\Arr::get($group, 'context');
+        $_items   = (array) \Illuminate\Support\Arr::get($group, 'items');
+        foreach($_items as $code => $val) {
             $langs = (array) \Illuminate\Support\Arr::get($val, 'langs');
             foreach($langs as $locale => $translate) {
                 $data[$locale][$context][$code] = $translate;
@@ -51,7 +68,7 @@ Route::post('/!/lkng-snippet/save', function () {
     }
     foreach($data as $locale => $val) {
         $file = resource_path('lang/' . $locale . '/lkng-snippets.php');
-        $dir = dirname($file);
+        $dir  = dirname($file);
         if(!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
