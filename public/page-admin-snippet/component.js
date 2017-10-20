@@ -1,7 +1,9 @@
 (function () {
 
     angular
-        .module('larakit')
+        .module('lkng-snippet', []);
+    angular
+        .module('lkng-snippet')
         .component('pageAdminSnippet', {
             templateUrl: '/packages/larakit/lkng-snippet/page-admin-snippet/component.html',
             controller: Controller

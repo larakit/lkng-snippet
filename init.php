@@ -8,6 +8,7 @@
  */
 \Larakit\Boot::register_boot(__DIR__ . '/boot');
 
+\Larakit\LkNgModule::register('lkng-snippet');
 \Larakit\StaticFiles\Manager::package('larakit/lkng-snippet')
     ->usePackage('larakit/ng-adminlte')
     ->setSourceDir('public')
