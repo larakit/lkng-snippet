@@ -13,6 +13,7 @@
     ->usePackage('larakit/ng-adminlte')
     ->setSourceDir('public')
     ->jsPackage('page-admin-snippet/component.js');
+
 \Larakit\Twig::register_function('snippet', function ($context, $code) {
     return \Larakit\LkNg\LkNgSnippet::get($code, $context);
 });

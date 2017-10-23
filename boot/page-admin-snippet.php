@@ -20,26 +20,36 @@ $dir = '/packages/larakit/lkng-snippet/';
     if(me('is_admin')) {
         $title = 'Управление текстами';
         $icon  = 'fa fa-language';
+//        \Larakit\LkNgSidebar::section('admin', $title)
+//            ->item('snippet.1.1', '1.1');
+//        \Larakit\LkNgSidebar::section('admin', $title)
+//            ->item('snippet.1', '11111111');
+    
         //##################################################
         //      Добавление в sidebar администратора
         //##################################################
         $items = \Larakit\LkNg\LkNgSnippet::all();
         foreach(\Illuminate\Support\Arr::get($items, 'items') as $context => $_items) {
-            if(mb_strpos($context, '.')) {
-                $context_array = explode('.', $context, 2);
-                $gr1     = \Illuminate\Support\Arr::get($context_array, 0);
-                $gr2     = \Illuminate\Support\Arr::get($context_array, 1);
-                $key     = $gr1 . '.' . md5($gr2);
-                \Larakit\LkNgSidebar::section('admin', $title)
-                    ->item('snippet'.$gr1, $gr1, $icon, $url . '-' . $gr1);
-                $name = $gr2;
-            } else {
+//            if(mb_strpos($context, '#')) {
+//                $context_array = explode('#', $context, 2);
+//                $gr1     = \Illuminate\Support\Arr::get($context_array, 0);
+//                $gr2     = \Illuminate\Support\Arr::get($context_array, 1);
+//                $key     = $gr1 . '.' . md5($gr2);
+//                \Larakit\LkNgSidebar::section('admin', $title)
+//                    ->item('snippet'.$gr1, $gr1, $icon, $url . '-' . $gr1);
+//                $name = $gr2;
+//                \Log::info('+++++++');
+//                \Log::info($gr1);
+//                \Log::info($gr2);
+//                \Log::info($key);
+//            } else {
                 $key = md5($context);
                 $name = $context;
-            }
+//            }
             \Larakit\LkNgSidebar::section('admin', $title)
                 ->item('snippet' . $key, $name, $icon, $url . '-' . md5($context));
         }
+//        \Log::info(\Larakit\LkNgSidebar::all());
         
         //##################################################
         //      Добавление в Angular - routing
