@@ -5,7 +5,7 @@
     angular
         .module('lkng-snippet')
         .component('pageAdminSnippet', {
-            templateUrl: '/packages/larakit/lkng-snippet/page-admin-snippet/component.html',
+            templateUrl: '/packages/larakit/lkng-snippet/page-admin-snippet/component.html?'+Math.random(),
             controller: Controller
         });
 
