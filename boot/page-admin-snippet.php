@@ -47,7 +47,7 @@ $dir = '/packages/larakit/lkng-snippet/';
                 $name = $context;
 //            }
             \Larakit\LkNgSidebar::section('admin', $title)
-                ->item('snippet' . $key, $name, $icon, $url . '-' . md5($context));
+                ->item('snippet.' . $key, $name, $icon, $url . '-' . md5($context));
         }
 //        \Log::info(\Larakit\LkNgSidebar::all());
         
